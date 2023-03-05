@@ -14,7 +14,7 @@ const app = express();
 
 
 //routers
-// const authRoutes = require("./routes/auth");
+const serviceRoutes = require("./routes/service");
 
 //models
 
@@ -33,7 +33,7 @@ app.use((req,res,next)=>{
 
 // route middlewares
 // app.use('/auth',authRoutes);
-
+app.use('/api',serviceRoutes);
 
 
 let port = process.env.PORT;
@@ -44,3 +44,4 @@ if (port == null || port == "") {
 app.listen(port,()=>{
   console.log(`Server up at ${port}`);
 })
+  

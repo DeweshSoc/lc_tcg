@@ -10,7 +10,7 @@ exports.getRandomArray = (req, res, next) => {
     const payload = {
       count: 1,
       size: n,
-      array: h,
+      arrays: [h],
       status: "ok",
       message: "none",
     };

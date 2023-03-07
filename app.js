@@ -34,7 +34,12 @@ app.use((req,res,next)=>{
 // route middlewares
 // app.use('/auth',authRoutes);
 app.use('/api',serviceRoutes);
-
+//default route middleware
+app.use('/',(req,res,next)=>{
+  const err = new Error("BAD REQUEST : invalid endpoint url");
+  err.status = 400;
+  throw err;
+})
 
 
 // error-handling
@@ -42,7 +47,7 @@ app.use((err,req,res,next)=>{
   const error={};
   if(!err.type){
       error.status=err.status||500;
-      error.message= "Some server error occured.";
+      error.message= (err.status)?err.message:"Some server error occured.";
   }
   res.status(err.status||500).json({error:error});
 })

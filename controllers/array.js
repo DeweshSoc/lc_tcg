@@ -2,7 +2,7 @@ const express = require('express');
 
 /**
  * Array module
- * @module arrays
+ * @module arrays-controller
  * 
  */
 

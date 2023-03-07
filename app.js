@@ -36,6 +36,17 @@ app.use((req,res,next)=>{
 app.use('/api',serviceRoutes);
 
 
+
+// error-handling
+app.use((err,req,res,next)=>{
+  const error={};
+  if(!err.type){
+      error.status=err.status||500;
+      error.message= "Some server error occured.";
+  }
+  res.status(err.status||500).json({error:error});
+})
+
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 5000;

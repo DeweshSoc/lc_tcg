@@ -1,5 +1,4 @@
 exports.getRandomArray = (req, res, next) => {
-  try {
     const n = Math.floor(Math.random() * (1001 - 0) + 0);
     let h = "[";
     for (let i = 0; i < n; i++) {
@@ -15,8 +14,4 @@ exports.getRandomArray = (req, res, next) => {
       message: "none",
     };
     res.status(200).json(payload);
-  } catch (err) {
-    console.log(err);
-    throw err;
-  }
 };

@@ -6,6 +6,6 @@ const arrayController = require("../controllers/array");
 //code here
 
 router.get('/arrays/0',arrayController.getRandomArray);
-
+router.post('/arrays/1',arrayController.getCustomArrays);
 
 module.exports = router;

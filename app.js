@@ -39,12 +39,15 @@ app.use("/", (req, res, next) => {
 
 // error-handling
 app.use((err, req, res, next) => {
+  console.log(`\x1b[41m\x1b[1m\x1b[97m `,err.stack,`\x1b[0m`);
   const error = {};
   if (!err.type) {
     error.status = err.status || 500;
     error.message = err.status ? err.message : "Some server error occured.";
   }
   res.status(err.status || 500).json({ error: error });
+  
+  console.log(`\x1b[42m\x1b[30m\x1b[1mERROR HANDLED\x1b[0m`);
 });
 
 let port = process.env.PORT;

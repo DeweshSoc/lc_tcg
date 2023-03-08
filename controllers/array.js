@@ -45,92 +45,92 @@ exports.getCustomArrays = (req, res, next) => {
   console.log(
     `\x1b[42m\x1b[30m\x1b[1mgetCustomArrays handler - executing request\x1b[0m`
   );
-  const options = req.body;
   console.table(req.body);
-  const noOfArrays = options.count;
-  const minEle = options.min;
-  const maxEle = options.max;
-  const minSizeOfArray = options.minSz;
-  const maxSizeOfArray = options.maxSz;
-  if (
-    isNaN(noOfArrays) ||
-    isNaN(minEle) ||
-    isNaN(maxEle) ||
-    isNaN(minSizeOfArray) ||
-    isNaN(maxSizeOfArray)
-  ) {
+  const { count, minSz, maxSz, minEle, maxEle, uniqueEle } = req.body;
+  if (isReqInvalid(req.body)) {
     const err = new Error("Invalid input");
     err.status = 422;
     throw err;
   }
-  const uniqueEle = options.unique;
-  
   const arrays = [];
-  let N = noOfArrays;
+  let N = count;
   while (N--) {
-    let sizeOfArray = randomArrSize(minSizeOfArray, maxSizeOfArray,minEle,maxEle,uniqueEle);
+    let sizeOfArray = randomArrSize(minSz, maxSz, minEle, maxEle, uniqueEle);
     arrays.push(
-      (uniqueEle === true)
-      ? generateArrEleUnique(sizeOfArray, minEle, maxEle)
-      : generateArr(sizeOfArray, minEle, maxEle)
-      );
-    }
-    const payload = {
-      count: noOfArrays,
-      size: `[${minSizeOfArray},${maxSizeOfArray}]`,
-      arrays: arrays,
-      status: "ok",
-      message:
-      noOfArrays === 1 ? `1 array generated` : `${noOfArrays} arrays generated`,
-    };
-    res.status(200).json(payload);
-    console.log(
-      `\x1b[42m\x1b[30m\x1b[1mgetCustomArrays handler - response sent\x1b[0m`
+      uniqueEle === true
+        ? generateArrEleUnique(sizeOfArray, minEle, maxEle)
+        : generateArr(sizeOfArray, minEle, maxEle)
     );
+  }
+  const payload = {
+    count: count,
+    size: `[${minSz},${maxSz}]`,
+    arrays: arrays,
+    status: "ok",
+    message: count === 1 ? `1 array generated` : `${count} arrays generated`,
   };
-  
-  /**
+  res.status(200).json(payload);
+  console.log(
+    `\x1b[42m\x1b[30m\x1b[1mgetCustomArrays handler - response sent\x1b[0m`
+  );
+};
+
+/**
+ *  isReqValid - checks if req.body object is invalid
  *
- * randomArrSize - get random array size within given range 
- * @param {number} minSizeOfArray - lower bound of arr.length range
- * @param {number} maxSizeOfArray - upper bound of arr.length range
+ * @param {express.Request.body} body - JS object obtained after parsing json request body attached by user
+ * @return {boolean} - returns true if body is invalid
+ */
+const isReqInvalid = (body) => {
+  console.log(
+    `\x1b[35misReqInvalid() - \x1b[36mvalidating request body...\x1b[0m`
+  );
+  const { count, minSz, maxSz, minEle, maxEle, uniqueEle } = body;
+  return typeof count === "number" &&
+    count &&
+    typeof minSz === "number" &&
+    minSz &&
+    typeof maxSz === "number" &&
+    maxSz &&
+    typeof minEle === "number" &&
+    minEle &&
+    typeof maxEle === "number" &&
+    maxEle &&
+    typeof uniqueEle === "boolean" &&
+    uniqueEle != undefined
+    ? false
+    : true;
+};
+
+/**
+ *
+ * randomArrSize - get random array size within given range
+ * @param {number} minSz - lower bound of arr.length range
+ * @param {number} maxSz - upper bound of arr.length range
  * @param {number} minEle - lower bound of arr[i] range
  * @param {number} maxEle - upper bound of arr[i] range
  * @param {boolean} uniqueEle - true if array should contain unique elements
- * @return {number} - returns number denoting random array size 
+ * @return {number} - returns number denoting random array size
  */
-const randomArrSize = (minSizeOfArray, maxSizeOfArray, minEle, maxEle,uniqueEle) => {
+const randomArrSize = (minSz, maxSz, minEle, maxEle, uniqueEle) => {
   console.log(
     `\x1b[35mrandomArrSize() - \x1b[36mgenerating random array size...\x1b[0m`
   );
-  let sizeOfArray;
+  let sizeOfArray = randomNoInRange(minSz, maxSz);
   if (uniqueEle) {
     let trial = 10;
-    let foundValidArraySize = true;
-    do {
-      if (!trial--) {
-        console.log(
-          `\x1b[35mall trials expired : \x1b[36mcould not generate valid array size\x1b[0m`
-        );
-        foundValidArraySize = false;
-        break;
-      }
-      sizeOfArray = randomNoInRange(minSizeOfArray, maxSizeOfArray);
+    console.log(`trying size ${sizeOfArray}...`);
+    while (sizeOfArray > maxEle - minEle + 1 && trial--) {
+      sizeOfArray = randomNoInRange(minSz, maxSz);
       console.log(`trying size ${sizeOfArray}...`);
-    } while (sizeOfArray > maxEle - minEle + 1);
-    if (!foundValidArraySize) {
-      const err = new Error(
-        "Cannot generate unique elements if arr[i] range is smaller than maximum possible size of arr"
-      );
+    }
+    if (trial <= 0) {
+      console.log(`\x1b[35mrandomArrSize - \x1b[36mall trials expired\x1b[0m`);
+      const err = new Error(`arr[i] range is smaller than maximum possible size of arr`);
       err.status = 422;
       throw err;
     }
-  } else {
-    sizeOfArray = randomNoInRange(minSizeOfArray, maxSizeOfArray);
   }
-  console.log(
-    `\x1b[35mrandomArrSize() - \x1b[36marray size generated :${sizeOfArray}\x1b[0m`
-  );
   return sizeOfArray;
 };
 
@@ -153,18 +153,14 @@ const randomNoInRange = (min, max) => {
  */
 const generateArrEleUnique = (size, minEle, maxEle) => {
   console.log(
-    `\x1b[35mgenerateArrEleUnique() -  \x1b[36mgenerating unique array...\x1b[0m`);
+    `\x1b[35mgenerateArrEleUnique() -  \x1b[36mgenerating unique array...\x1b[0m`
+  );
   const elements = new Set();
   while (elements.size < size) {
     let rand = randomNoInRange(minEle, maxEle);
     elements.add(rand);
   }
-  const arr = Array.from(elements).join(",");
-  const stringArr = "[" + arr + "]";
-  console.log(
-    `\x1b[35mgenerateArrEleUnique() - \x1b[36mgenerated array : [${arr.slice(0,20)}...] of size ${elements.size}\x1b[0m`
-  );
-  return stringArr;
+  return "[" + Array.from(elements).join(",") + "]";
 };
 
 /**
@@ -173,7 +169,7 @@ const generateArrEleUnique = (size, minEle, maxEle) => {
  *  @param {number} minEle - minimum possible element
  *  @param {number} maxEle - maximum possible element
  *  @return {string} - string representation of a random array
-*/
+ */
 const generateArr = (size, minEle, maxEle) => {
   console.log(`\x1b[35mgenerateArr() -  \x1b[36mgenerating array...\x1b[0m`);
   const elements = [];
@@ -181,8 +177,5 @@ const generateArr = (size, minEle, maxEle) => {
     let rand = randomNoInRange(minEle, maxEle);
     elements.push(rand);
   }
-  const arr = elements.join(',');
-  const stringArr = "[" + arr + "]";
-  console.log(`\x1b[35mgenerateArr() - \x1b[36mgenerated array : [${arr.slice(0,20)}...] of size ${elements.length}\x1b[0m`);
-  return stringArr;
+  return "[" + elements.join(",") + "]";
 };

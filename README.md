@@ -9,8 +9,6 @@ A leetcode based RESTful testcase generator API.
 For comprehensive documentation visit - 
 <a href="https://lc-tcg-docs.cyclic.app/api-docs" target="_blank">LC/tcg API docs</a>
 
-https://lc-tcg-docs.cyclic.app/api-docs
-
 ### Servers: 
 - Local -  ``http://localhost:5000``
 - Remote - ``https://lc-tcg-api.cyclic.app/``

@@ -4,6 +4,8 @@
 
 A leetcode based RESTful testcase generator API.
 
+For documentation of the code base - [LC/tcg code docs](https://deweshsoc.github.io/lc_tcg-code-docs/)
+
 ## API Reference
 
 For comprehensive documentation visit - 

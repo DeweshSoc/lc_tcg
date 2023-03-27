@@ -10,5 +10,6 @@ const arrayController = require("../controllers/array");
 
 router.get("/arrays/0", arrayController.getRandomArray);
 router.post("/arrays/1", arrayController.getCustomArrays);
+router.post("/arrays/2", arrayController.getCustomSortedArray);
 
 module.exports = router;

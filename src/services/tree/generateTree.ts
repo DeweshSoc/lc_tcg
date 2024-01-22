@@ -1,6 +1,6 @@
 import { Queue } from "@datastructures-js/queue";
 
-import getRandomNoInRange from "../getRandomNoInRange.js";
+import {getRandomNoInRange} from "../index";
 
 
 /**
@@ -10,7 +10,7 @@ import getRandomNoInRange from "../getRandomNoInRange.js";
  *  @param {number} maxEle - maximum possible element
  *  @return {string} - string representation of a random tree
  */
-const generateTree = (maxNodes:number, minEle:number, maxEle:number):string => {
+export const generateTree = (maxNodes:number, minEle:number, maxEle:number):string => {
 
   console.log(`\x1b[35mgenerateTree() -  \x1b[36mgenerating tree...\x1b[0m`);
   let maxNodesToInsert = maxNodes;
@@ -48,5 +48,3 @@ const generateTree = (maxNodes:number, minEle:number, maxEle:number):string => {
   return "[" + treeString.join(",") + "]";
 };
 
-
-export default generateTree;

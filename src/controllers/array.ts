@@ -1,10 +1,13 @@
 import {Response,Request,NextFunction} from 'express';
 
-import generateArray from '../services/array/generateArray';
-import generateUniqueArray from '../services/array/generateUniqueArray';
-import getRandomArraySize from '../services/array/getRandomArraySize';
-import isArrayReqInvalid from '../services/array/isArrayReqInvalid';
-import isSortedArrayReqInvalid from '../services/array/isSortedArrayReqInvalid';
+import { 
+  generateArray,
+  generateUniqueArray,
+  getRandomArraySize,
+  isArrayReqInvalid,
+  isSortedArrayReqInvalid
+} from '../services';
+
 import { ErrorResponse } from '../interfaces';
 
 // import 

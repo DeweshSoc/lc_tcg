@@ -1,4 +1,4 @@
-import getRandomNoInRange from "../getRandomNoInRange";
+import {getRandomNoInRange} from "../index";
 /**
  *  generateUniqueArray - generate a string representation of a random array with unique element
  *  @param {number} size - size of array
@@ -8,7 +8,7 @@ import getRandomNoInRange from "../getRandomNoInRange";
  *  @param {boolean} increasingOrder - is the order increasing
  *  @return {string} - string representation of a random array with unique elements
  */
-const generateUniqueArray = (
+export const generateUniqueArray = (
   size:number,
   minEle:number,
   maxEle:number,
@@ -29,5 +29,3 @@ const generateUniqueArray = (
     : arr;
   return "[" + arr.join(",") + "]";
 };
-
-export default generateUniqueArray;

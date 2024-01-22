@@ -5,7 +5,7 @@
  * @param {express.Request.body} body - JS object obtained after parsing json request body attached by user
  * @return {boolean} - returns true if body is invalid
  */
-const isArrayReqInvalid = (body:any) => {
+export const isArrayReqInvalid = (body:any) => {
   console.log(
     `\x1b[35misArrayReqInvalid() - \x1b[36mvalidating request body...\x1b[0m`
   );
@@ -31,5 +31,3 @@ const isArrayReqInvalid = (body:any) => {
   return !(areTypeOK && areValuesValid && areValuesInRange);
 };
 
-
-export default isArrayReqInvalid;

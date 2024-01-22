@@ -1,4 +1,4 @@
-import getRandomNoInRange from "../getRandomNoInRange";
+import {getRandomNoInRange} from "../index";
 
 
 /**
@@ -10,7 +10,7 @@ import getRandomNoInRange from "../getRandomNoInRange";
  *  @param {boolean} increasingOrder - is the order increasing
  *  @return {string} - string representation of a random array
  */
-const generateArray = (
+export const generateArray = (
   size:number,
   minEle:number,
   maxEle:number,
@@ -30,5 +30,3 @@ const generateArray = (
     : elements;
   return "[" + elements.join(",") + "]";
 };
-
-export default generateArray;

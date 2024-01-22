@@ -1,5 +1,5 @@
 import { ErrorResponse } from "../../interfaces";
-import getRandomNoInRange from "../getRandomNoInRange";
+import {getRandomNoInRange} from "../index";
 
 
 
@@ -15,7 +15,7 @@ import getRandomNoInRange from "../getRandomNoInRange";
  * @param {boolean} areEleUnique - true if array should contain unique elements
  * @return {number} - returns number denoting random array size
  */
-const getRandomArraySize = (
+export const getRandomArraySize = (
     minSz:number, 
     maxSz:number, 
     minEle:number, 
@@ -41,4 +41,3 @@ const getRandomArraySize = (
   return sizeOfArray;
 };
 
-export default getRandomArraySize

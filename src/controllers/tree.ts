@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import generateTree from "../services/tree/generateTree.js";
+import {generateTree} from "../services";
 
 
 /**

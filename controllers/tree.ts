@@ -1,5 +1,5 @@
-const express = require("express");
-const generateTree = require("../utils/tree/generateTree");
+import { NextFunction, Request, Response } from 'express';
+import generateTree from "../services/tree/generateTree.js";
 
 
 /**
@@ -15,7 +15,7 @@ const generateTree = require("../utils/tree/generateTree");
  * @param {express.Response} res - express response object
  * @param {express.NextFunction} next - express next function
  */
-exports.getRandomTree = (req, res, next) => {
+export const getRandomTree = (req: Request, res: Response, next:NextFunction) => {
   console.log(
     `\x1b[42m\x1b[30m\x1b[1mgetRandomTree handler - executing request\x1b[0m`
   );

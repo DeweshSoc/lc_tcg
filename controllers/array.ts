@@ -1,9 +1,13 @@
-const express = require("express");
-const generateArray  = require("../utils/array/generateArray");
-const generateUniqueArray = require("../utils/array/generateUniqueArray");
-const getRandomArraySize = require("../utils/array/getRandomArraySize");
-const isArrayReqInvalid = require("../utils/array/isArrayReqInvalid");
-const isSortedArrayReqInvalid = require("../utils/array/isSortedArrayReqInvalid");
+import {Response,Request,NextFunction} from 'express';
+
+import generateArray from '../services/array/generateArray';
+import generateUniqueArray from '../services/array/generateUniqueArray';
+import getRandomArraySize from '../services/array/getRandomArraySize';
+import isArrayReqInvalid from '../services/array/isArrayReqInvalid';
+import isSortedArrayReqInvalid from '../services/array/isSortedArrayReqInvalid';
+import { ErrorResponse } from '../interfaces';
+
+// import 
 
 
 /**
@@ -19,7 +23,7 @@ const isSortedArrayReqInvalid = require("../utils/array/isSortedArrayReqInvalid"
  * @param {express.Response} res - express response object
  * @param {express.NextFunction} next - express next function
  */
-exports.getRandomArray = (req, res, next) => {
+export const getRandomArray = (req:Request, res:Response, next:NextFunction) => {
   console.log(
     `\x1b[42m\x1b[30m\x1b[1mgetRandomArray handler - executing request\x1b[0m`
   );
@@ -47,26 +51,26 @@ exports.getRandomArray = (req, res, next) => {
  * @param {express.NextFunction} next - express next function
  */
 
-exports.getCustomArrays = (req, res, next) => {
+export const getCustomArrays = (req:Request, res:Response, next:NextFunction) => {
   console.log(
     `\x1b[42m\x1b[30m\x1b[1mgetCustomArrays handler - executing request\x1b[0m`
   );
   console.table(req.body);
   const { count, minSz, maxSz, minEle, maxEle, areEleUnique } = req.body;
   if (isArrayReqInvalid(req.body)) {
-    const err = new Error("Invalid input for the requested endpoint");
+    const err = new Error("Invalid input for the requested endpoint") as ErrorResponse;
     err.status = 422;
     throw err;
   }
-  const arrays = [];
+  const arrays: Array<string> = [];
   let N = count;
   while (N--) {
     let sizeOfArray = getRandomArraySize(minSz, maxSz, minEle, maxEle, areEleUnique);
-    arrays.push(
-      areEleUnique === true
-        ? generateUniqueArray(sizeOfArray, minEle, maxEle)
-        : generateArray(sizeOfArray, minEle, maxEle)
-    );
+    if(areEleUnique){
+      arrays.push(generateUniqueArray(sizeOfArray,minEle,maxEle));
+    }else{
+      generateArray(sizeOfArray, minEle, maxEle)
+    }
   }
   const payload = {
     count: count,
@@ -89,7 +93,7 @@ exports.getCustomArrays = (req, res, next) => {
  * @param {express.Response} res - express response object
  * @param {express.NextFunction} next - express next function
  */
-exports.getCustomSortedArray = (req, res, next) => {
+export const getCustomSortedArray = (req: Request, res: Response, next: NextFunction) => {
   console.log(
     `\x1b[42m\x1b[30m\x1b[1mgetCustomSortedArrays handler - executing request\x1b[0m`
   );
@@ -97,7 +101,7 @@ exports.getCustomSortedArray = (req, res, next) => {
   const { minSz, maxSz, minEle, maxEle,areEleUnique,increasingOrder } =
     req.body;
   if (isSortedArrayReqInvalid(req.body)) {
-    const err = new Error("Invalid input");
+    const err = new Error("Invalid input") as ErrorResponse;
     err.status = 422;
     throw err;
   }

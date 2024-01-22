@@ -1,4 +1,5 @@
-const getRandomNoInRange = require("../getRandomNoInRange");
+import getRandomNoInRange from "../getRandomNoInRange.js";
+
 
 /**
  * generateArray - generate a string representation of a random array
@@ -9,15 +10,15 @@ const getRandomNoInRange = require("../getRandomNoInRange");
  *  @param {boolean} increasingOrder - is the order increasing
  *  @return {string} - string representation of a random array
  */
- module.exports = generateArray = (
-  size,
-  minEle,
-  maxEle,
-  sorted = false,
-  increasingOrder = true
-) => {
+const generateArray = (
+  size:number,
+  minEle:number,
+  maxEle:number,
+  sorted:boolean = false,
+  increasingOrder:boolean = true
+):string => {
   console.log(`\x1b[35mgenerateArray() -  \x1b[36mgenerating array...\x1b[0m`);
-  let elements = [];
+  let elements:Array<number> = [];
   while (size--) {
     let rand = getRandomNoInRange(minEle, maxEle);
     elements.push(rand);
@@ -29,3 +30,5 @@ const getRandomNoInRange = require("../getRandomNoInRange");
     : elements;
   return "[" + elements.join(",") + "]";
 };
+
+export default generateArray;

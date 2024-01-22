@@ -1,4 +1,9 @@
-const  getRandomNoInRange  = require("../getRandomNoInRange");
+import { ErrorResponse } from "../../interfaces";
+import getRandomNoInRange from "../getRandomNoInRange.js";
+
+
+
+
 
 /**
  *
@@ -10,10 +15,14 @@ const  getRandomNoInRange  = require("../getRandomNoInRange");
  * @param {boolean} areEleUnique - true if array should contain unique elements
  * @return {number} - returns number denoting random array size
  */
-module.exports=getRandomArraySize = (minSz, maxSz, minEle, maxEle, areEleUnique) => {
-  console.log(
-    `\x1b[35mgetRandomArraySize() - \x1b[36mgenerating random array size...\x1b[0m`
-  );
+const getRandomArraySize = (
+    minSz:number, 
+    maxSz:number, 
+    minEle:number, 
+    maxEle:number, 
+    areEleUnique:boolean
+  ):number => {
+  console.log(`\x1b[35mgetRandomArraySize() - \x1b[36mgenerating random array size...\x1b[0m`);
   let sizeOfArray = getRandomNoInRange(minSz, maxSz);
   if (areEleUnique) {
     let trial = 10;
@@ -24,12 +33,12 @@ module.exports=getRandomArraySize = (minSz, maxSz, minEle, maxEle, areEleUnique)
     }
     if (trial <= 0) {
       console.log(`\x1b[35mgetRandomArraySize() - \x1b[36mall trials expired\x1b[0m`);
-      const err = new Error(
-        `arr[i] range is smaller than maximum possible size of arr`
-      );
+      const err = new Error(`arr[i] range is smaller than maximum possible size of arr`) as ErrorResponse;
       err.status = 422;
       throw err;
     }
   }
   return sizeOfArray;
 };
+
+export default getRandomArraySize

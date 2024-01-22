@@ -4,7 +4,7 @@
  * @param {express.Request.body} body - JS object obtained after parsing json request body attached by user
  * @return {boolean} - returns true if body is invalid
  */
-module.exports=isSortedArrayReqInvalid = (body) => {
+const isSortedArrayReqInvalid = (body) => {
   console.log(
     `\x1b[35misSortedArrayReqInvalid() - \x1b[36mvalidating request body...\x1b[0m`
   );
@@ -32,3 +32,5 @@ module.exports=isSortedArrayReqInvalid = (body) => {
     minEle <= maxEle;
   return !(areTypeOK && areValuesValid && areValuesInRange);
 };
+
+export default isSortedArrayReqInvalid;

@@ -1,5 +1,4 @@
-const getRandomNoInRange = require("../getRandomNoInRange");
-
+import getRandomNoInRange from "../getRandomNoInRange.js";
 /**
  *  generateUniqueArray - generate a string representation of a random array with unique element
  *  @param {number} size - size of array
@@ -9,22 +8,20 @@ const getRandomNoInRange = require("../getRandomNoInRange");
  *  @param {boolean} increasingOrder - is the order increasing
  *  @return {string} - string representation of a random array with unique elements
  */
-module.exports=generateUniqueArray = (
-  size,
-  minEle,
-  maxEle,
-  sorted = false,
-  increasingOrder = true
-) => {
-  console.log(
-    `\x1b[35mgenerateUniqueArray() -  \x1b[36mgenerating unique array...\x1b[0m`
-  );
-  const elements = new Set();
+const generateUniqueArray = (
+  size:number,
+  minEle:number,
+  maxEle:number,
+  sorted:boolean = false,
+  increasingOrder:boolean = true
+):string => {
+  console.log(`\x1b[35mgenerateUniqueArray() -  \x1b[36mgenerating unique array...\x1b[0m`);
+  const elements: Set<number> = new Set();
   while (elements.size < size) {
     let rand = getRandomNoInRange(minEle, maxEle);
     elements.add(rand);
   }
-  let arr = Array.from(elements);
+  let arr: Array<number> = Array.from(elements.values());
   arr = sorted
     ? increasingOrder
       ? arr.sort((a, b) => a - b)
@@ -32,3 +29,5 @@ module.exports=generateUniqueArray = (
     : arr;
   return "[" + arr.join(",") + "]";
 };
+
+export default generateUniqueArray;

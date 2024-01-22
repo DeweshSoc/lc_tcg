@@ -1,126 +1,42 @@
+h1,h2,h3,h4,h5,h6,p,pre,button,a,td,div{
+    color: #fff !important;
+}
+
 body{
-    background-color: #fff;
+    background-color: #151515;
 }
 
-.swagger-ui{
-    color:#161C35
-}
 .swagger-ui select{
-    border-width: 1px;
+    background-color: #151515;
+    border: none;
+    border-bottom: 2px solid #7ae2a0;
+    color: #fff !important;
+    outline: none;
 }
-
-.swagger-ui .info .title small.version-stamp{
-    background-color: rgba(233, 57, 76,1);
-}
-
-/* topbar */
 .swagger-ui .topbar{
-    background-color: #161C35;
-    padding: 14px 0;
+    display:none;
 }
-.topbar-wrapper a img{
-    height: 35;
-    content:url("./assets/images/FilPassLight.svg");
-}
-
-/* schemes wrapper */
 .swagger-ui .scheme-container{
-    box-shadow: none;
+    background-color:  #151515;
 }
-.swagger-ui .btn.authorize svg {
-    fill:#3C3757;
-    transition-duration: 0.2s;
-}
-.swagger-ui .btn.authorize{    
-    background-color: transparent;
-    border-color:#3C3757;
-    color:#3C3757;
-    transition-duration: 0.2s;
-}
-.swagger-ui .btn.authorize:hover{
-    color: #fff;
-    background-color: #161C35;
-    border-color: #161C35;
-}
-.swagger-ui .btn.authorize:hover svg {
-    fill: #fff;
-}
-
-/* AUTH MODAL */
-.swagger-ui .dialog-ux .modal-ux-header {
-    background-color: #161C35;
-    border-bottom: 1px solid #161c35;
-}
-.swagger-ui .dialog-ux .modal-ux-header h3{
-    color: #fff;
-}
-.swagger-ui .dialog-ux .modal-ux-header .close-modal svg use{
-    fill: #fff;
-}
-
-.swagger-ui .auth-container input[type=text]{
- border-color: #161C35;
-}
-
-/* METHODS */
-.swagger-ui .btn.execute {
-    background-color: #3C3757;
-    border-color: #3C3757;
-    color: #fff;
-    transition-duration: 0.1s;
-}
-.swagger-ui .opblock-summary-control:focus{
-    outline:none;
-}
-.swagger-ui .response-control-media-type__accept-message {
-    color: #161C35;
-}
-.swagger-ui .response-control-media-type--accept-controller select{
-    border-color: #161C35;
-}
-.swagger-ui .opblock .opblock-section-header{
-    background-color: transparent;
+.swagger-ui .info .title small.version-stamp {
+    background-color: #7AE2A0;
 }
 
 .swagger-ui .opblock-tag{
-    border-top: 1px solid rgba(59,65,81,.3);
-    border-bottom: none;
+    border-bottom: 1px solid #7AE2A0;
 }
-#operations-tag-Auth{
-    border-top: none;
-}
-.swagger-ui .opblock-tag:first{
-    border-top: none;
-}
-/* post */
-
-.swagger-ui .opblock.opblock-post{
-    border-color: rgba(33, 51, 126,1);
-    background-color: rgba(33, 51, 126,0.1);
-}
-.swagger-ui .opblock.opblock-post .opblock-summary{
-    border-color: transparent;
-}
-.swagger-ui .opblock.opblock-post .opblock-summary-method{
-    background-color: rgba(33, 51, 126,1);
-}
-
-/* get */
 .swagger-ui .opblock.opblock-get{
-    border-color: rgba(233, 57, 76,1);
-    background-color: rgba(233, 57, 76,0.1)
+    border:none
 }
-.swagger-ui .opblock.opblock-get .opblock-summary{
-    border-color: transparent;
-}
-.swagger-ui .opblock.opblock-get .opblock-summary-method{
-    background-color: rgba(233, 57, 76,1);    
+.swagger-ui .opblock.opblock-post{
+    border:none
 }
 
-/* method accordian */
-.swagger-ui .opblock.opblock-post .tab-header .tab-item.active h4 span:after{
-    background-color: rgba(33, 51, 126,1);
+.swagger-ui .expand-methods svg, .swagger-ui .expand-operation svg{
+    fill: #7AE2A0;
 }
-.swagger-ui .opblock.opblock-get .tab-header .tab-item.active h4 span:after{
-    background-color: rgba(233, 57, 76,1);
+
+.swagger-ui .opblock .opblock-section-header{
+    background: none;
 }

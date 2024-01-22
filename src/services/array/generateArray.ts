@@ -1,4 +1,4 @@
-import getRandomNoInRange from "../getRandomNoInRange.js";
+import getRandomNoInRange from "../getRandomNoInRange";
 
 
 /**

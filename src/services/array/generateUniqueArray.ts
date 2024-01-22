@@ -1,4 +1,4 @@
-import getRandomNoInRange from "../getRandomNoInRange.js";
+import getRandomNoInRange from "../getRandomNoInRange";
 /**
  *  generateUniqueArray - generate a string representation of a random array with unique element
  *  @param {number} size - size of array

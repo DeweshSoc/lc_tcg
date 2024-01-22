@@ -1,0 +1,205 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "A RESTful leetcode based test case generator",
+    "version": "1.0.0",
+    "title": "LC/tcg",
+    "contact": {
+      "name": "Author",
+      "url": "https://deweshsoc.github.io/Portfoliov2/",
+      "email": "deweshjha4@gmail.com"
+    }
+  },
+  "servers": [
+    { "url": "https://lc-tcg-api.cyclic.app/", "description": "remote server" },
+    { "url": "http://localhost:5000", "description": "Local server" }
+  ],
+  "tags": [
+    {
+      "name": "Arrays",
+      "description": "All array related endpoints"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "arrayRequestBody": {
+        "type": "object",
+        "properties": {
+          "count": { "type": "number" },
+          "minSz": { "type": "number" },
+          "maxSz": { "type": "number" },
+          "minEle": { "type": "number" },
+          "maxEle": { "type": "number" },
+          "areEleUnique": { "type": "boolean" }
+        }
+      },
+      "arraySortedRequestBody": {
+        "type": "object",
+        "properties": {
+          "minSz": { "type": "number" },
+          "maxSz": { "type": "number" },
+          "minEle": { "type": "number" },
+          "maxEle": { "type": "number" },
+          "areEleUnique": { "type": "boolean" },
+          "increasingOrder": { "type": "boolean" }
+        }
+      },
+      "arrayResponsePayload": {
+        "type": "object",
+        "properties": {
+          "count": { "type": "number" },
+          "size": { "type": "string" },
+          "arrays": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": { "type": "string" },
+          "message": { "type": "string" }
+        }
+      },
+      "generalError": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/arrays/0": {
+      "get": {
+        "tags": ["Arrays"],
+        "summary": "Get a random array of size N, where 1<=N<=1000",
+        "description": "The endpoint returns an array of strings, wherein the string represents an array of random size filled with random numbers",
+        "operationId": "getRandomArray",
+        "responses": {
+          "200": {
+            "description": "successful operation - returns valid response containing the generated array",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/arrayResponsePayload"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error - returns error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/generalError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/arrays/1": {
+      "post": {
+        "tags": ["Arrays"],
+        "summary": "Get upto FIVE random customised arrays",
+        "description": "Allowed Ranges for custom array request:<pre>\n1 <= count <= 5\nminSz > 0\nmaxSz <= 100000\nminSz <= maxSz\nminEle >= -1000000000 \n maxEle <= 1000000000\n minEle <= maxEle\nareEleUnique &#8712; [true,false]</pre>",
+        "requestBody": {
+          "description": "Customization option to generate arrays",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/arrayRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation - returns valid response containing the generated array",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/arrayResponsePayload"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error - returns error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/generalError"
+                }
+              }
+            }
+          },
+          "422":{
+            "description": "request syntax is valid, but content is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/generalError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/arrays/2": {
+      "post": {
+        "tags": ["Arrays"],
+        "summary": "Get ONE random customised sorted array",
+        "description": "Allowed Ranges for custom array request:<pre>\nminSz > 0\nmaxSz <= 100000\nminSz <= maxSz\nminEle >= -1000000000 \n maxEle <= 1000000000\n minEle <= maxEle\nareEleUnique &#8712; [true,false]\n increasingOrder &#8712; [true,false]</pre>",
+        "requestBody": {
+          "description": "Customization Options to generate arrays",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/arraySortedRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation - returns valid response containing the generated array",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/arrayResponsePayload"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error - returns error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/generalError"
+                }
+              }
+            }
+          },
+          "422":{
+            "description": "request syntax is valid, but content is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/generalError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

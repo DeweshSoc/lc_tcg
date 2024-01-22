@@ -23,7 +23,7 @@ import { ErrorResponse } from './src/interfaces';
 
 //configuration middlewares
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname,"src", "public")));
 
 // cors error handling middleware
 app.use((req, res, next) => {
@@ -38,15 +38,16 @@ app.use("/api", apiRoute);
 
 // documentation route middleware
 const swaggerOptions:swaggerUI.SwaggerUiOptions = { 
-  customCssUrl: '/static/swagger/main.css',
+  customCssUrl: '/swagger/main.css',
   customSiteTitle: "LC Tcg API",
-  customfavIcon: "/static/swagger/assets/images/favicon/favicon.ico" 
+  customfavIcon: "/swagger/assets/images/favicon/favicon.ico" 
 };
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc,swaggerOptions));
 
 //default route middleware
 app.use("/", (req, res, next) => {
-  const err = new Error("BAD REQUEST : invalid endpoint url");
+  // console.log(req.url);
+  const err = new Error("BAD REQUEST : invalid endpoint url => "+req.url);
   // err.status = 400;
   throw err;
 });
@@ -56,7 +57,10 @@ app.use("/", (req, res, next) => {
 app.use((err:ErrorResponse, req:Request, res:Response, next:NextFunction) => {
   console.log(`\x1b[41m\x1b[1m\x1b[97m `,err.stack,`\x1b[0m`);
   err.message = err.status ? err.message : "Some server error occured.";
-  res.status(err.status || 500).json({ error: err });
+  res.status(err.status || 500).json({ error: {
+    status:err.status,
+    message:err.message
+  } });
   console.log(`\x1b[42m\x1b[30m\x1b[1mERROR HANDLED\x1b[0m`);
 });
 

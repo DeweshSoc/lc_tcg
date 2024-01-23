@@ -19,10 +19,10 @@ export const getRandomTree = (req: Request, res: Response, next:NextFunction) =>
   console.log(
     `\x1b[42m\x1b[30m\x1b[1mgetRandomTree handler - executing request\x1b[0m`
   );
-  const newTree = generateTree(1000,1,20);
+  const newTree = generateTree(1000,1,200);
   const payload = {
     count: 1,
-    size: `[1,1001]`,
+    size: `[1,1000]`,
     trees: [newTree],
     status: "ok",
     message: "1 tree generated",

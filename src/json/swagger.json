@@ -18,6 +18,10 @@
     {
       "name": "Arrays",
       "description": "All array related endpoints"
+    },
+    {
+      "name":"Trees",
+      "description":"All tree related endpoints"
     }
   ],
   "components": {
@@ -50,6 +54,21 @@
           "count": { "type": "number" },
           "size": { "type": "string" },
           "arrays": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": { "type": "string" },
+          "message": { "type": "string" }
+        }
+      },
+      "treeResponsePayload": {
+        "type": "object",
+        "properties": {
+          "count": { "type": "number" },
+          "size": { "type": "string" },
+          "trees": {
             "type": "array",
             "items": {
               "type": "string"
@@ -190,6 +209,36 @@
           },
           "422":{
             "description": "request syntax is valid, but content is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/generalError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+      "/api/trees/0": {
+      "get": {
+        "tags": ["Trees"],
+        "summary": "Get a random tree of size N, where 1<=N<=1000",
+        "description": "The endpoint returns an array of strings, wherein the string represents a tree of random size filled with random numbers between 1 and 200",
+        "operationId": "getRandomTree",
+        "responses": {
+          "200": {
+            "description": "successful operation - returns valid response containing the generated tree",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/treeResponsePayload"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error - returns error",
             "content": {
               "application/json": {
                 "schema": {

@@ -4,12 +4,11 @@
 
 A leetcode based RESTful testcase generator API.
 
-For documentation of the code base - [LC/tcg code docs](https://deweshsoc.github.io/lc_tcg-code-docs/)
 
 ## API Reference
 
 For comprehensive documentation visit - 
-<a href="https://lc-tcg-docs.cyclic.app/api-docs" target="_blank">LC/tcg API docs</a>
+<a href="https://lc-tcg-api.cyclic.app/api-docs/" target="_blank">LC/tcg API docs</a>
 
 ### Servers: 
 - Local -  ``http://localhost:5000``

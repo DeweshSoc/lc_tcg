@@ -11,7 +11,7 @@
     }
   },
   "servers": [
-    { "url": "https://lc-tcg-api.cyclic.app/", "description": "remote server" },
+    { "url": "https://lc-tcg.onrender.com/", "description": "remote server" },
     { "url": "http://localhost:5000", "description": "Local server" }
   ],
   "tags": [
